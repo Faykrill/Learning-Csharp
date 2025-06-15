@@ -53,11 +53,21 @@ namespace Test
         public void ConditionSwitch()
         {
             Console.WriteLine("\n\"SWITCH\"");
-            Console.Write("\n Введите height и width через Enter: \n");
 
-            int height = int.Parse(Console.ReadLine() ?? "0");
-            int width = int.Parse(Console.ReadLine() ?? "0");
+            var (height, width, HeightValid, WidthValid) = GetAndValidateDimensions();
 
+            if (height < 0 || width < 0) 
+            return;
+
+            string message = (HeightValid, WidthValid) switch
+            {
+                (true, true) => "It's Okey",
+                (true, false) => "It's not Okey. Width < 150",
+                (false, true) => "It's not Okey. Height < 280",
+                _ => "It's very bad. Height and Width < 280 and 150"
+            };
+            
+            Console.WriteLine(message);
 
         }
     }

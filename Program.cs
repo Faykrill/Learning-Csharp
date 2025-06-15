@@ -11,6 +11,5 @@ namespace Test
             IMenuManager _menu = new MenuManager();
             _menu.HandleUserChoice();
         }
-
     }   
 }
