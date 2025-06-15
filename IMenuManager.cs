@@ -1,6 +1,9 @@
-interface IMenuManager
+namespace Test
 {
-    void ShowMainMenu();
-    void HandleUserChoice();
-    void ReturnToMenu();
+    interface IMenuManager
+    {
+        void ShowMainMenu();
+        void HandleUserChoice();
+        void ReturnToMenu();
+    }
 }

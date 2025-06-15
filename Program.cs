@@ -4,11 +4,11 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Test
 {
-    class Testing
-    {
-        IMenuManager _menu = new MenuManager(); 
-        void Main(string[] args)
+    class Program
+    { 
+        static void Main(string[] args)
         {
+            IMenuManager _menu = new MenuManager();
             _menu.HandleUserChoice();
         }
 

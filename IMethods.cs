@@ -1,5 +1,10 @@
-interface IMethods
+namespace Test
 {
-    void ConditionIF();
-    void ConditionSwitch();
-}
+
+
+    interface IMethods
+    {
+        void ConditionIF();
+        void ConditionSwitch();
+    }
+} 

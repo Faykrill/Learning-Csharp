@@ -3,9 +3,8 @@ namespace Test
 
     class Methods : IMethods
     {
-        public void ConditionIF()
+        private (int height, int width, bool HeightValid, bool WidthValid) GetAndValidateDimensions()
         {
-            Console.WriteLine("\n\"IF-ELSE\"");
             Console.Write("\n Введите height и width через Enter: \n");
             int height = int.Parse(Console.ReadLine() ?? "0");
             int width = int.Parse(Console.ReadLine() ?? "0");
@@ -16,13 +15,27 @@ namespace Test
             bool HeightValid = height >= MinHeight;
             bool WidthValid = width >= MinWidth;
 
+            if (height < 0 || width < 0)
+            {
+                Console.WriteLine("Error: Negative values are not allowed.");
+                return (height, width, HeightValid, WidthValid);
+            }
+
+            return (height, width, HeightValid, WidthValid);
+        }
+        
+        public void ConditionIF()
+        {
+            Console.WriteLine("\n\"IF-ELSE\"");
+
+            var (height, width, HeightValid, WidthValid) = GetAndValidateDimensions();
+
+            if (height < 0 || width < 0) 
+            return;
+
             if (HeightValid && WidthValid)
             {
                 Console.WriteLine("It's Okey");
-            }
-            else if (height < 0 || width < 0)
-            {
-                Console.WriteLine("Error: Negative values are not allowed.");
             }
             else if (HeightValid && !WidthValid)
             {
@@ -39,7 +52,13 @@ namespace Test
         }
         public void ConditionSwitch()
         {
-            Console.WriteLine("Этот раздел находится в разработке. Приходите позже!");
+            Console.WriteLine("\n\"SWITCH\"");
+            Console.Write("\n Введите height и width через Enter: \n");
+
+            int height = int.Parse(Console.ReadLine() ?? "0");
+            int width = int.Parse(Console.ReadLine() ?? "0");
+
+
         }
     }
 }
