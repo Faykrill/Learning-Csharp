@@ -2,42 +2,60 @@ namespace Test
 {
     class MenuManager : IMenuManager
     {
-        IMethods _methods = new Methods();
+        private readonly IMethods _methods;
+        private readonly Dictionary<string, (string Name, Action Command)> _menuItems;
+
+        public MenuManager()
+        {
+            _methods = new Methods();
+
+            _menuItems = new()
+            {
+                ["1"] = ("IF-ELSE", () => _methods.ConditionIF()),
+                ["if-else"] = ("IF-ELSE", () => _methods.ConditionIF()),
+                ["2"] = ("SWITCH", () => _methods.ConditionSwitch()),
+                ["switch"] = ("SWITCH", () => _methods.ConditionSwitch())
+            };
+        }
+
         public void ShowMainMenu()
         {
-            Console.WriteLine("Main Menu: ");
-            Console.WriteLine("1. \"IF-ELSE\"");
-            Console.WriteLine("2. \"SWITCH\"");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("Main Menu:");
+
+            // Выводим все пункты с цифрами
+            int i = 1;
+            foreach (var key in _menuItems.Keys.Where(k => k.Length == 1)) // Берём только цифры
+            {
+                Console.WriteLine($"{i++}. {_menuItems[key].Name}");
+            }
+
+            Console.WriteLine($"{i}. Exit");
             Console.Write("\nSelect item: ");
         }
+
         public void HandleUserChoice()
         {
             while (true)
             {
                 Console.Clear();
                 ShowMainMenu();
-                string input = Console.ReadLine() ?? "3";
-
-                switch (input)
+                
+                string input = Console.ReadLine()?.ToLower() ?? "";
+                
+                if (input == "exit" || input == "3") break;
+                
+                if (_menuItems.TryGetValue(input, out var item))
                 {
-                    case "1" or "IF-ELSE":
-                        _methods.ConditionIF();
-                        ReturnToMenu();
-                        break;
-                    case "2" or "SWITCH" or "switch":
-                        _methods.ConditionSwitch();
-                        ReturnToMenu();
-                        break;
-                    case "3" or "end" or "break" or "exit":
-                        Console.WriteLine("Exit....");
-                        return;
-                    default:
-                        Console.WriteLine("Ошибка: введите 1, 2 или 3");
-                        Console.ReadKey();
-                        break;
+                    item.Command(); // Выполняем команду
+                    ReturnToMenu();
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка: неверный пункт!");
+                    Console.ReadKey();
                 }
             }
+
         }
 
         public void ReturnToMenu()

@@ -70,5 +70,10 @@ namespace Test
             Console.WriteLine(message);
 
         }
+
+        public void OneArray ()
+        {
+            Console.WriteLine("One-dimensional Array\n !В разработке!");
+        }
     }
 }
