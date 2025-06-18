@@ -14,7 +14,9 @@ namespace Test
                 ["1"] = ("IF-ELSE", () => _methods.ConditionIF()),
                 ["if-else"] = ("IF-ELSE", () => _methods.ConditionIF()),
                 ["2"] = ("SWITCH", () => _methods.ConditionSwitch()),
-                ["switch"] = ("SWITCH", () => _methods.ConditionSwitch())
+                ["switch"] = ("SWITCH", () => _methods.ConditionSwitch()),
+                ["3"] = ("OneArray", () => _methods.OneArray()),
+                ["oneArray"] = ("OneArray", () => _methods.OneArray())
             };
         }
 
@@ -22,14 +24,13 @@ namespace Test
         {
             Console.WriteLine("Main Menu:");
 
-            // Выводим все пункты с цифрами
             int i = 1;
-            foreach (var key in _menuItems.Keys.Where(k => k.Length == 1)) // Берём только цифры
+            foreach (var key in _menuItems.Keys.Where(k => k.Length == 1))
             {
                 Console.WriteLine($"{i++}. {_menuItems[key].Name}");
             }
 
-            Console.WriteLine($"{i}. Exit");
+            Console.WriteLine("0. Exit");
             Console.Write("\nSelect item: ");
         }
 
@@ -42,17 +43,17 @@ namespace Test
                 
                 string input = Console.ReadLine()?.ToLower() ?? "";
                 
-                if (input == "exit" || input == "3") break;
+                if (input == "exit" || input == "0") break;
                 
                 if (_menuItems.TryGetValue(input, out var item))
                 {
-                    item.Command(); // Выполняем команду
+                    item.Command();
                     ReturnToMenu();
                 }
                 else
                 {
                     Console.WriteLine("Ошибка: неверный пункт!");
-                    Console.ReadKey();
+                    ReturnToMenu();
                 }
             }
 

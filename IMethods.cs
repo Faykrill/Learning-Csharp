@@ -6,5 +6,6 @@ namespace Test
     {
         void ConditionIF();
         void ConditionSwitch();
+        void OneArray();
     }
 } 
